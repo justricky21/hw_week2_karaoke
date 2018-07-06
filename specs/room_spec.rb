@@ -9,7 +9,6 @@ class TestRoom < MiniTest::Test
     @song2 = Song.new("Shooting Stars", "Bag Raiders", ["It's late and I'm awake","Staring at the wall"])
     @song3 = Song.new("What is love","Haddaway",["What is love, baby don't hurt me","don't hurt me, don't hurt me, no more"])
     @song4 = Song.new("The 7th element", "Vitas",["brlblrblrblrbl","ha-ha-ha"])
-    @song_list = [@song1, @song2, @song3, @song4]
     @room1 = Room.new("1", @song_list, 5, 3)
     @room2 = Room.new("2", @song_list, 11, 8)
     @guest1 = Guest.new("Hewei", "All Star", 10)
@@ -35,16 +34,27 @@ class TestRoom < MiniTest::Test
     @room1.check_in(@guest2)
     @room1.check_in(@guest3)
     @room1.check_in(@guest4)
+    # guest4 cannot enter
     assert_nil(@room1.guest_list[3])
   end
 
   def test_check_in_guest_no_money
+    # guest 1 has 10 buckazoids
     @room1.check_in(@guest1)
     @room1.check_out(@guest1)
+    # guest 1 has 5 buckazoids
     @room1.check_in(@guest1)
     @room1.check_out(@guest1)
+    # guest 1 has 0 buckazoids
     @room1.check_in(@guest1)
+    # guest 1 cannot affort entry
     assert_nil(@room1.guest_list[0])
     assert_equal(0,@guest1.wallet)
   end
+
+  def test_fave_song
+    @room1.add_to_shuffle(@song1)
+    assert_equal("YAYOOOO!",@guest1.get_fave_song(@room1.currently_playing))
+  end
+
 end

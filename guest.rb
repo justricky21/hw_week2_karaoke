@@ -14,8 +14,12 @@ attr_reader :name, :favorite_song, :wallet
     @wallet -= fee
   end
 
-  # def get_fave_song(song)
-  #   looks at song and finds it's name
-  # end
+  def get_fave_song(song)
+    if song.title == @favorite_song
+      return "YAYOOOO!"
+    else
+      return "Put on #{@favorite_song}!"
+    end
+  end
 
 end

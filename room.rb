@@ -6,14 +6,17 @@ class Room
 # has room song_list(array)
 # does select song by name, returns songlist.name[x]
 # does guest_list, returns guest.name
-# does check_in, takes in guest, returns boolean
+# does check_in, takes in guest, guest.wallet
+# returns boolean
 # does check_out, takes in guest, returns boolean
+attr_reader :currently_playing
   def initialize(arg1, arg2, arg3, arg4)
     @number = arg1
     @list = arg2
     @guests = []
     @admission_fee = arg3
     @room_size = arg4
+    @currently_playing = nil
   end
 
   def check_in(guest)
@@ -24,6 +27,10 @@ class Room
     else
       return false
     end
+  end
+
+  def add_to_shuffle(song)
+    @currently_playing = song
   end
 
   def check_out(guest)
