@@ -9,8 +9,8 @@ class TestRoom < MiniTest::Test
     @song2 = Song.new("Shooting Stars", "Bag Raiders", ["It's late and I'm awake","Staring at the wall"])
     @song3 = Song.new("What is love","Haddaway",["What is love, baby don't hurt me","don't hurt me, don't hurt me, no more"])
     @song4 = Song.new("The 7th element", "Vitas",["brlblrblrblrbl","ha-ha-ha"])
-    @room1 = Room.new("1", @song_list, 5, 3)
-    @room2 = Room.new("2", @song_list, 11, 8)
+    @room1 = Room.new("1", 5, 3)
+    @room2 = Room.new("2", 11, 8)
     @guest1 = Guest.new("Hewei", "All Star", 10)
     @guest2 = Guest.new("Louie", "7th Element", 10)
     @guest3 = Guest.new("Dewie", "What is love", 15)
@@ -55,6 +55,18 @@ class TestRoom < MiniTest::Test
   def test_fave_song
     @room1.add_to_shuffle(@song1)
     assert_equal("YAYOOOO!",@guest1.get_fave_song(@room1.currently_playing))
+  end
+
+  def test_room_has_till
+    @room1.check_in(@guest1)
+    assert_equal(5, @room1.till)
+  end
+
+  def test_room_room_charter
+    @room1.check_in(@guest1)
+    @room1.check_out(@guest1)
+    @room1.check_in(@guest1)
+    assert_equal(10, @room1.charter_lookup(@guest1))
   end
 
 end
