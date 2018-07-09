@@ -1,6 +1,6 @@
 require_relative 'guest'
 require_relative 'song'
-require_relative 'charter'
+require_relative 'voucher'
 class Room
 
 # has room number(string)//reader
@@ -19,7 +19,7 @@ attr_reader :currently_playing, :list, :till
     @room_size = arg3
     @currently_playing = nil
     @till = 0
-    @charter = []
+    @voucher = []
   end
 
   @list = @song_list
@@ -27,7 +27,7 @@ attr_reader :currently_playing, :list, :till
     if (@guests.length < @room_size) && (guest.wallet >= @admission_fee)
       guest.charge_entry(@admission_fee)
       @guests.push(guest)
-      @charter.push(Charter.new(guest.name, @admission_fee))
+      @voucher.push(Voucher.new(guest.name, @admission_fee))
       @till += @admission_fee
       return true
     else
@@ -35,9 +35,9 @@ attr_reader :currently_playing, :list, :till
     end
   end
 
-  def charter_lookup(guest)
+  def voucher_lookup(guest)
     total_spent = 0
-    for each in @charter
+    for each in @voucher
       if each.guest_name == guest.name
         total_spent += each.money_spent
       end

@@ -62,11 +62,11 @@ class TestRoom < MiniTest::Test
     assert_equal(5, @room1.till)
   end
 
-  def test_room_room_charter
+  def test_room_room_voucher
     @room1.check_in(@guest1)
     @room1.check_out(@guest1)
     @room1.check_in(@guest1)
-    assert_equal(10, @room1.charter_lookup(@guest1))
+    assert_equal(10, @room1.voucher_lookup(@guest1))
   end
 
 end
